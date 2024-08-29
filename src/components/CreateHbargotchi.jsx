@@ -26,11 +26,11 @@ function CreateHbargotchi({ walletData, accountId }) {
     const getMetadataForImage = (image) => {
         switch (image) {
             case "cat":
-                return "ipfs://bafybeigpkigz7bw5dbllvjactnaqbls3v5hxl66o5ukzj33ar4irmspe5q";
+                return "ipfs://bafkreiapag7464vfpft4w2pp67asukhbs7rc7w2hhbuk3vchqu5pku6rkm";
             case "fox":
-                return "ipfs://bafybeiapimahbagjaqsxetdhucsqyttm4brtyqp45ntlhsx7miecgx463y";
+                return "ipfs://bafybeid5bp3qu2si6rlg3jfqspzeeqggj4zofd3a6aozkw2rlbt26upwki";
             case "penguin":
-                return "ipfs://bafybeic4wltfkcmeuw2y2owtfni6mu4tvniys5ooyxm7yzbnqxhecjpuau";
+                return "ipfs://bafybeigyucppqrf7be4lswqsyubepkkm535fxmw4bzwoahs2aborcm4p6q";
             default:
                 return "";
         }

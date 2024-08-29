@@ -2,8 +2,8 @@
     "name": "Hbargotchi Fox",
     "creator": "DALL-E",
     "description": "A cute Hbargotchi Fox NFT",
-    "image": "ipfs://bafybeibkkrpt5fdq5tidnzycxnr6vxhnc2adgpslc65ljk2d72vs6rg5ei",
-    "type": "image/png",
+    "image": "ipfs://bafybeie2glfncub3vdyokqgo5ometaxsb3rfjnsn2psq6ivx4bmxaik47i",
+    "type": "image/jpg",
     "properties": {
         "license": "MIT-0",
         "collection": "Hbargotchi",
@@ -14,10 +14,9 @@
     },
     "files": [
       {
-          "uri": "https://myserver.com/high-resolution-nft-001.png",
-          "checksum": "9defbb6402d4bf39f2ea580099c73194647b24a659b6f6b778e3dd71755b8862",
-          "is_default_file": true,
-          "type": "image/png"
+        "uri": "ipfs://bafkreihlnkkjxmxn5gdldvhfiitsdmm32ehwmefuwlrdg62vzir3alhmja",
+        "is_default_file": true,
+        "type": "image/webp"
       }
   ]
 }

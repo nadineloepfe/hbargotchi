@@ -2,7 +2,7 @@
     "name": "Hbargotchi Cat",
     "creator": "DALL-E",
     "description": "A cute Hbargotchi Cat NFT",
-    "image": "ipfs://bafybeig3shys7ti6ascmjor4nms4tww75hlornz4nhvm2gsnm5ruxt7rlu",
+    "image": "ipfs://bafkreigulvxv6umq7v44mvwii4r6nvbxoz56vp6mk5alx5uqyntz4pqk2y",
     "type": "image/jpg",
     "properties": {
         "license": "MIT-0",
@@ -14,9 +14,9 @@
     },
     "files": [
       {
-          "uri": "ipfs://bafybeicnoxvoyzb2dov3gar27btawz7l2go6csosvikcqausukzfwxxqku",
+          "uri": "ipfs://bafkreifjp7s6wri7elm25lbwsgjysi4vcm3jj73rjwjd6cevtv2fw5vupy",
           "is_default_file": true,
-          "type": "image/png"
+          "type": "image/webp"
       }
   ]
 }

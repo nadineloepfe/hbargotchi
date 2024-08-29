@@ -12,13 +12,13 @@ async function walletConnectFcn() {
 		pairedAccounts: [],
 	};
 	let appMetadata = {
-		name: "Hbargotchi",
-		description: "Your digital pet on Hedera",
+		name: "Hedera dApp Days",
+		description: "Let's buidl a dapp on Hedera",
 		icon: "https://raw.githubusercontent.com/ed-marquez/hedera-dapp-days/testing/src/assets/hederaLogo.png",
 	};
 	let hashconnect = new HashConnect();
 
-	// First init and store the pairing private key for later 
+	// First init and store the pairing private key for later (this is NOT your account private key)
 	const initData = await hashconnect.init(appMetadata);
 	saveData.privateKey = initData.privKey;
 	console.log(`- Private key for pairing: ${saveData.privateKey}`);
@@ -30,7 +30,6 @@ async function walletConnectFcn() {
 
 	// Generate a pairing string, which you can display and generate a QR code from
 	saveData.pairingString = hashconnect.generatePairingString(state, "testnet", false);
-	console.log(`- Pairing string is ${saveData.pairingString}`)
 
 	// Find any supported local wallets
 	hashconnect.findLocalWallets();
