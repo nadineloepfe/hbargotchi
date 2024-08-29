@@ -1,13 +1,12 @@
 {
   "name": "Hbargotchi Penguin",
-  "creator": "Nadine Loepfe feat. DALL-E",
+  "creator": "DALL-E",
   "description": "A cute Hbargotchi Penguin NFT",
   "image": "ipfs://bafybeibkkrpt5fdq5tidnzycxnr6vxhnc2adgpslc65ljk2d72vs6rg5ei",
   "type": "image/png",
   "properties": {
       "license": "MIT-0",
       "collection": "Hbargotchi",
-      "website": "www.hashgraph.com",
               "isCollectible": true,
       "type": "Penguin",
       "rarity": "Rare",

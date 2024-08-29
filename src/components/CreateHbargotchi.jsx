@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import createAndMintHbargotchi from "./hedera/NFT"; 
-import catImage from "../assets/hbargotchi-cat.webp";
-import foxImage from "../assets/hbargotchi-fox.webp";
-import penguinImage from "../assets/hbargotchi-penguin.webp";
+import catImage from "../assets/cat/hbargotchi-cat.webp";
+import foxImage from "../assets/fox/hbargotchi-fox.webp";
+import penguinImage from "../assets/penguin/hbargotchi-penguin.webp";
 import "./CreateHbargotchi.css";
 
 function CreateHbargotchi({ walletData, accountId }) {

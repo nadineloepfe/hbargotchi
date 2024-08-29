@@ -14,7 +14,7 @@ async function walletConnectFcn() {
 	let appMetadata = {
 		name: "Hbargotchi",
 		description: "Your digital pet on Hedera",
-		icon: "../../assets/hbargotchilogo.png",
+		icon: "https://raw.githubusercontent.com/ed-marquez/hedera-dapp-days/testing/src/assets/hederaLogo.png",
 	};
 	let hashconnect = new HashConnect();
 
@@ -30,6 +30,7 @@ async function walletConnectFcn() {
 
 	// Generate a pairing string, which you can display and generate a QR code from
 	saveData.pairingString = hashconnect.generatePairingString(state, "testnet", false);
+	console.log(`- Pairing string is ${saveData.pairingString}`)
 
 	// Find any supported local wallets
 	hashconnect.findLocalWallets();
