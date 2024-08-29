@@ -15,7 +15,7 @@ async function treatTokenCreateFcn(walletData, accountId) {
 	const supplyKey = PublicKey.fromString(mirrorQuery.data.accounts[0].key.key);
 
 	const tokenCreateTx = await new TokenCreateTransaction()
-		.setTokenName("treatToken")
+		.setTokenName("TreatToken")
 		.setTokenSymbol("TREAT")
 		.setTreasuryAccountId(accountId)
 		.setAutoRenewAccountId(accountId)
