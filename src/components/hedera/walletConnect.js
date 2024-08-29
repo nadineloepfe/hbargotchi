@@ -12,9 +12,8 @@ async function walletConnectFcn() {
 		pairedAccounts: [],
 	};
 	let appMetadata = {
-		name: "Hedera dApp Days",
-		description: "Let's buidl a dapp on Hedera",
-		icon: "https://raw.githubusercontent.com/ed-marquez/hedera-dapp-days/testing/src/assets/hederaLogo.png",
+		name: "Hbargotchi",
+		description: "Your Web3 Pet",
 	};
 	let hashconnect = new HashConnect();
 
