@@ -8,7 +8,8 @@ const Nav = ({ setWalletData, setAccountId }) => {
     <nav className="navbar">
       <div className="navContainer">
         <div className="navLinks">
-          <Link to="/faq" className="link">FAQ</Link>
+        <Link to="/" className="link">Create</Link>
+          <Link to="/send" className="link">Send</Link>
         </div>
       </div>
       <div className="button">

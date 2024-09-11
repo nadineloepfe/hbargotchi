@@ -12,8 +12,8 @@ async function walletConnectFcn() {
 		pairedAccounts: [],
 	};
 	let appMetadata = {
-		name: "Hbargotchi",
-		description: "Your Web3 Pet",
+		name: "NFT Medal Minter",
+		description: "Send a token of appreciation",
 	};
 	let hashconnect = new HashConnect();
 

@@ -113,7 +113,7 @@ button {
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
-    padding: 10px 20px;
+    padding: 10px 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     position: relative; 
     font-family: 'Helvetica', sans-serif;
@@ -133,7 +133,7 @@ button {
   }
   
   .link {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     font-size: 18px;
   }
@@ -244,3 +244,101 @@ button {
 .modal-button:hover {
     background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00);
 }
+
+.send-medal-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #f7f7f7; 
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px; 
+  }
+  
+  .input-label {
+    display: block;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .styled-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .styled-input:focus {
+    border-color: #FF6100; /* Focus color */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    outline: none;
+  }
+  
+  /* Button Container */
+  .button-container {
+    margin-top: 30px;
+  }
+  
+  /* Gradient Button */
+  .gradient-button {
+    background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00); 
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: none;
+    transition: background 0.3s ease;
+  }
+  
+  .gradient-button:hover {
+    background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00); 
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .send-medal-page {
+      padding: 20px;
+    }
+  
+    .page-title {
+      font-size: 1.5rem;
+    }
+  
+    .styled-input {
+      font-size: 0.9rem;
+    }
+  
+    .gradient-button {
+      font-size: 0.9rem;
+      padding: 10px 16px;
+    }
+  }
+  
+  .send-medal-page, .container {
+    padding-top: 20px; /* Reduce this value */
+    margin-top: 0; /* Make sure margin is set to 0 */
+  }
+  
+  .navbar {
+    margin-bottom: 0; /* Ensure no extra bottom margin on the navbar */
+    padding-bottom: 10px; /* Adjust padding for a tighter layout */
+  }

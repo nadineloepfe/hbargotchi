@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import createAndMintMedal from "./hedera/NFT"; 
+import createAndMintMedal from "./hedera/createMintNft"; 
 import { uploadJsonToPinata } from "./ipfsService"; 
 import bronzeImage from "../assets/bronze_medal.webp";
 import silverImage from "../assets/silver_medal.webp";
 import goldImage from "../assets/gold_medal.webp";
 import { useNavigate } from 'react-router-dom';  
-import "../App.css";
+import "../App.css"; 
 
 function CreateMedal({ walletData, accountId }) {
     const [createTextSt, setCreateTextSt] = useState("");
@@ -14,11 +14,19 @@ function CreateMedal({ walletData, accountId }) {
     const [note, setNote] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [medalTokenId, setMedalTokenId] = useState("");  
+    const [showLoginModal, setShowLoginModal] = useState(false); // Modal for login error
     const navigate = useNavigate();
 
     const modalRef = useRef(null);
 
-    
+    // Wallet data check
+    useEffect(() => {
+        if (!walletData || !accountId) {
+            setShowLoginModal(true); // Show login modal if wallet not connected
+        }
+    }, [walletData, accountId]);
+
+    // Automatically close modal after 10 seconds
     useEffect(() => {
         if (showModal) {
             const timeout = setTimeout(() => setShowModal(false), 10000);
@@ -44,6 +52,12 @@ function CreateMedal({ walletData, accountId }) {
     }, [showModal]);
 
     const confirmNFT = async () => {
+        // Check if the wallet is connected
+        if (!walletData || walletData.length === 0) {
+            setShowLoginModal(true); // Show modal asking user to log in
+            return;
+        }
+
         if (!selectedImage) {
             setCreateTextSt("Please select a medal to mint!");
             return;
@@ -51,6 +65,12 @@ function CreateMedal({ walletData, accountId }) {
 
         if (!note || note.split(" ").length > 50) {
             setCreateTextSt("Please enter a note with no more than 50 words!");
+            return;
+        }
+
+        // Check if the user is logged in
+        if (!accountId || accountId === "0") {
+            setShowLoginModal(true); // Show modal asking user to log in
             return;
         }
 
@@ -66,14 +86,14 @@ function CreateMedal({ walletData, accountId }) {
                 {
                     uri: getImageForMetadata(selectedImage),
                     is_default_file: true,
-                    type: "image/webp",
+                    type: "image/jpg",
                 },
             ],
         };
 
         try {
             const ipfsHash = await uploadJsonToPinata(metadata);
-            const [MedalTokenId, supply, txIdRaw] = await createAndMintMedal(walletData, accountId, ipfsHash);
+            const [MedalTokenId] = await createAndMintMedal(walletData, accountId, ipfsHash);
 
             setCreateTextSt(`Successfully created and minted Medal NFT with ID: ${MedalTokenId}`);
             setCreateLinkSt(`https://hashscan.io/testnet/token/${MedalTokenId}/1`);  
@@ -115,22 +135,14 @@ function CreateMedal({ walletData, accountId }) {
         setSelectedImage(image);
     };
 
-    function prettify(txIdRaw) {
-        const a = txIdRaw.split("@");
-        const b = a[1].split(".");
-        return `${a[0]}-${b[0]}-${b[1]}`;
-    }
-
     const navigateToSendMedal = () => {
-        // Navigate to sendMedal page with the token ID as a parameter
         navigate(`/send?tokenId=${medalTokenId}`);
     };
 
     return (
-        <div className="container">
-            <h3>Tournament? Hackathon? Create, mint and send a medal NFT including a note.</h3>
-            <h2>Choose Medal</h2>
-            <br />
+        <div className="container send-medal-page">
+            <h2 className="page-title">Create and Mint Your Medal NFT</h2>
+
             <div className="medal-images">
                 <img
                     src={bronzeImage}
@@ -151,7 +163,10 @@ function CreateMedal({ walletData, accountId }) {
                     onClick={() => selectImage("gold")}
                 />
             </div>
+
             <br />
+            <br></br>
+            <br></br>
             <textarea
                 className="note-input"
                 placeholder="Enter a note (max 50 words)"
@@ -159,14 +174,16 @@ function CreateMedal({ walletData, accountId }) {
                 onChange={(e) => setNote(e.target.value)}
                 maxLength={250}
             />
-            <br />
-            <br />
+
             {selectedImage && (
-                <div className="button">
-                    <button className="gradient-button" onClick={confirmNFT}>Confirm and Mint</button>
+                <div className="button-container">
+                    <button className="gradient-button" onClick={confirmNFT}>
+                        Confirm and Mint
+                    </button>
                 </div>
             )}
-            {/* Modal Popup */}
+
+            {/* Modal Popup for Minting */}
             {showModal && (
                 <>
                     <div className="modal-overlay show"></div>
@@ -182,6 +199,19 @@ function CreateMedal({ walletData, accountId }) {
                                 </button>
                             </>
                         )}
+                    </div>
+                </>
+            )}
+
+            {/* Modal Popup for Wallet not connected */}
+            {showLoginModal && (
+                <>
+                    <div className="modal-overlay show"></div>
+                    <div className="modal show" ref={modalRef}>
+                        <h2>Wallet not connected. Please connect first.</h2>
+                        <button className="modal-button" onClick={() => setShowLoginModal(false)}>
+                            Close
+                        </button>
                     </div>
                 </>
             )}
