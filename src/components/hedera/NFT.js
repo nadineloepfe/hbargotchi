@@ -1,8 +1,8 @@
 import { TokenCreateTransaction, TokenMintTransaction, PrivateKey, TokenType } from "@hashgraph/sdk";
 
-async function createAndMintHbargotchi(walletData, accountId, metadata) {
+async function createAndMintMedal(walletData, accountId, metadata) {
     console.log(`\n=======================================`);
-    console.log(`- Creating and minting your personal Hbargotchi NFT...`);
+    console.log(`- Creating and minting Medal NFT...`);
 
     const hashconnect = walletData[0];
     const saveData = walletData[1];
@@ -12,8 +12,8 @@ async function createAndMintHbargotchi(walletData, accountId, metadata) {
     const supplyKey = PrivateKey.generate();
 
     const tokenCreateTx = await new TokenCreateTransaction()
-        .setTokenName("Hbargotchi")
-        .setTokenSymbol("HBG")
+        .setTokenName("Medal")
+        .setTokenSymbol("MEDAL")
         .setTokenType(TokenType.NonFungibleUnique)  
         .setTreasuryAccountId(accountId)
         .setAutoRenewAccountId(accountId)
@@ -23,13 +23,13 @@ async function createAndMintHbargotchi(walletData, accountId, metadata) {
 
     const tokenCreateSubmit = await tokenCreateTx.executeWithSigner(signer);
     const tokenCreateRx = await provider.getTransactionReceipt(tokenCreateSubmit.transactionId);
-    const hbargotchiTokenId = tokenCreateRx.tokenId;
+    const medalTokenId = tokenCreateRx.tokenId;
 
-    console.log(`- Created Hbargotchi NFT with ID: ${hbargotchiTokenId}`);
+    console.log(`- Created Medal NFT with ID: ${medalTokenId}`);
     console.log(`- Supply Key: ${supplyKey}`);
 
     const tokenMintTx = await new TokenMintTransaction()
-        .setTokenId(hbargotchiTokenId)
+        .setTokenId(medalTokenId)
         .addMetadata(Buffer.from(metadata))
         .freezeWithSigner(signer);
 
@@ -38,10 +38,10 @@ async function createAndMintHbargotchi(walletData, accountId, metadata) {
     const tokenMintReceipt = await provider.getTransactionReceipt(tokenMintSubmit.transactionId);
     const supply = tokenMintReceipt.totalSupply;
 
-    console.log(`- Hbargotchi NFT minted. New total supply is ${supply}`);
+    console.log(`- Medal NFT minted. New total supply is ${supply}`);
     console.log(`- Transaction ID: ${tokenMintSubmit.transactionId}`);
 
-    return [hbargotchiTokenId, supply, tokenMintSubmit.transactionId];
+    return [medalTokenId, supply, tokenMintSubmit.transactionId];
 }
 
-export default createAndMintHbargotchi;
+export default createAndMintMedal;

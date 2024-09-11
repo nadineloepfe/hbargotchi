@@ -1,4 +1,7 @@
-# Hbargotchi 
+# Medal NFT Minter with Hashconnect
+
+A simple app to show integration with Hashconnect.
+
 # Pre-requisites:
 
 - Have a GitHub account: https://github.com/

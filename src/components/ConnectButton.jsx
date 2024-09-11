@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import walletConnectFcn from './hedera/walletConnect';
-import './Nav.css';
+import "../App.css";
 
 const ConnectButton = ({ setWalletData, setAccountId }) => {
   const [isConnected, setIsConnected] = useState(false);

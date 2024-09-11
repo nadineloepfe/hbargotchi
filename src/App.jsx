@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/Nav';
-import Home from './components/Home';
-import CreateHbargotchi from './components/CreateHbargotchi';
-import ManageHbargotchi from './components/ManageHbargotchi';
-import "./styles/App.css";
+import CreateMedal from './components/CreateMedal';
+import "./App.css";
 
 function App() {
   const [walletData, setWalletData] = useState();
@@ -15,9 +13,7 @@ function App() {
       <NavBar setWalletData={setWalletData} setAccountId={setAccountId} />
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateHbargotchi walletData={walletData} accountId={accountId} />} />
-          <Route path="/manage" element={<ManageHbargotchi walletData={walletData} accountId={accountId} />} />
+          <Route path="/" element={<CreateMedal walletData={walletData} accountId={accountId} />} />
         </Routes>
       </div>
     </Router>

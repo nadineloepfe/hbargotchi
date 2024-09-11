@@ -1,0 +1,152 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: white;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh; 
+}
+
+h1 {
+    color: #000000;
+    font-size: 2.5rem; 
+    text-align: center; 
+    margin: 20px 0; 
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #000; 
+}
+
+h3 {
+    font-size: 1em;
+    color: #000; 
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p { 
+    color: #000;
+}
+
+button {
+    text-transform: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.medal-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.medal-image {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 0 30px; 
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
+    border: 5px solid transparent; 
+}
+
+.medal-image:hover {
+    transform: scale(1.1); 
+}
+
+.medal-image.selected {
+    transform: scale(1.2) !important; 
+    animation: none; 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
+    position: relative;
+    overflow: hidden;
+    border: 5px solid orange; 
+}
+
+
+.medal-image.selected:hover {
+    transform: scale(1.2) !important;
+    border: 5px solid orange; 
+}
+
+
+.success-message {
+    color: #000; 
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; 
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  .navContainer {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center; 
+    flex-grow: 1; 
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 40px;
+    margin-right: 60px; 
+  }
+  
+  .link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .button button {
+    background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00); /* Orange gradient */
+    color: #ffffff; /* White text */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: none;
+    transition: background 0.3s ease;
+  }
+  
+  .button button:hover {
+    background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00); /* Brighter orange gradient on hover */
+  }
