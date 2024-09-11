@@ -342,3 +342,56 @@ button {
     margin-bottom: 0; /* Ensure no extra bottom margin on the navbar */
     padding-bottom: 10px; /* Adjust padding for a tighter layout */
   }
+
+  /* Card styling for the transfer section */
+.transfer-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 100px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.transfer-card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styling for input groups inside the card */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.styled-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.styled-input:focus {
+  border-color: #ff8800;
+  outline: none;
+}
+
+/* Button styling inside the card */
+.button-container {
+  margin-top: 20px;
+}
+
+.gradient-button {
+  background: linear-gradient(to right, #ff8800, #ff6100, #ff4d00);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(to right, #ff9c00, #ff7500, #ff4d00);
+}
