@@ -1,9 +1,11 @@
 import { TokenCreateTransaction, TokenMintTransaction, PrivateKey, TokenType } from "@hashgraph/sdk";
 
-async function createAndMintMedal(walletData, accountId, metadata) {
+async function createAndMintMedal(walletData, accountId, ipfsHash) {
     console.log(`\n=======================================`);
     console.log(`- Creating and minting Medal NFT...`);
 
+    console.log(accountId)
+    console.log(ipfsHash)
     const hashconnect = walletData[0];
     const saveData = walletData[1];
     const provider = hashconnect.getProvider("testnet", saveData.topic, accountId);
@@ -11,6 +13,7 @@ async function createAndMintMedal(walletData, accountId, metadata) {
 
     const supplyKey = PrivateKey.generate();
 
+    console.log("starting create tx")
     const tokenCreateTx = await new TokenCreateTransaction()
         .setTokenName("Medal")
         .setTokenSymbol("MEDAL")
@@ -28,9 +31,10 @@ async function createAndMintMedal(walletData, accountId, metadata) {
     console.log(`- Created Medal NFT with ID: ${medalTokenId}`);
     console.log(`- Supply Key: ${supplyKey}`);
 
+    console.log("starting mint tx")
     const tokenMintTx = await new TokenMintTransaction()
         .setTokenId(medalTokenId)
-        .addMetadata(Buffer.from(metadata))
+        .addMetadata(Buffer.from(ipfsHash))
         .freezeWithSigner(signer);
 
     const signedTokenMintTx = await tokenMintTx.sign(supplyKey);

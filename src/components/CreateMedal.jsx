@@ -1,14 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import createAndMintMedal from "./hedera/NFT"; 
+import { uploadJsonToPinata } from "./ipfsService"; 
 import bronzeImage from "../assets/bronze_medal.webp";
 import silverImage from "../assets/silver_medal.webp";
 import goldImage from "../assets/gold_medal.webp";
+import { useNavigate } from 'react-router-dom';  
 import "../App.css";
 
 function CreateMedal({ walletData, accountId }) {
     const [createTextSt, setCreateTextSt] = useState("");
     const [createLinkSt, setCreateLinkSt] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
+    const [note, setNote] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [medalTokenId, setMedalTokenId] = useState("");  
+    const navigate = useNavigate();
+
+    const modalRef = useRef(null);
+
+    
+    useEffect(() => {
+        if (showModal) {
+            const timeout = setTimeout(() => setShowModal(false), 10000);
+            return () => clearTimeout(timeout);
+        }
+    }, [showModal]);
+
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setShowModal(false);
+        }
+    };
+
+    useEffect(() => {
+        if (showModal) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showModal]);
 
     const confirmNFT = async () => {
         if (!selectedImage) {
@@ -16,21 +49,63 @@ function CreateMedal({ walletData, accountId }) {
             return;
         }
 
-        const metadata = getMetadataForImage(selectedImage);
-        const [MedalTokenId, supply, txIdRaw] = await createAndMintMedal(walletData, accountId, metadata);
-        setCreateTextSt(`Successfully created and minted Medal NFT with ID: ${MedalTokenId} and total supply: ${supply} ✅`);
-        const txId = prettify(txIdRaw);
-        setCreateLinkSt(`https://hashscan.io/testnet/transaction/${txId}`);
+        if (!note || note.split(" ").length > 50) {
+            setCreateTextSt("Please enter a note with no more than 50 words!");
+            return;
+        }
+
+        const metadata = {
+            name: "Medal",
+            description: "For your achievement",
+            image: getPreviewForImage(selectedImage),
+            type: "image/jpg",
+            properties: {
+                note: note,
+            },
+            files: [
+                {
+                    uri: getImageForMetadata(selectedImage),
+                    is_default_file: true,
+                    type: "image/webp",
+                },
+            ],
+        };
+
+        try {
+            const ipfsHash = await uploadJsonToPinata(metadata);
+            const [MedalTokenId, supply, txIdRaw] = await createAndMintMedal(walletData, accountId, ipfsHash);
+
+            setCreateTextSt(`Successfully created and minted Medal NFT with ID: ${MedalTokenId}`);
+            setCreateLinkSt(`https://hashscan.io/testnet/token/${MedalTokenId}/1`);  
+            setMedalTokenId(MedalTokenId);  
+            setShowModal(true);  
+        } catch (error) {
+            console.error("Error minting NFT or uploading metadata:", error);
+            setCreateTextSt("Failed to create and mint Medal NFT.");
+        }
     };
 
-    const getMetadataForImage = (image) => {
+    const getPreviewForImage = (image) => {
         switch (image) {
             case "bronze":
-                return "ipfs://bafkreiapag7464vfpft4w2pp67asukhbs7rc7w2hhbuk3vchqu5pku6rkm"; // Bronze medal metadata
+                return "QmSJYFMXZMuKhZ1JTSNMpPKQe6cw8akVK6Ypmxdzn4cyCV";
             case "silver":
-                return "ipfs://bafybeid5bp3qu2si6rlg3jfqspzeeqggj4zofd3a6aozkw2rlbt26upwki"; // Silver medal metadata
+                return "QmZAuaJJTNgY741539kv5zsbTfymfZ9jMNtXXbaF66Shwx";
             case "gold":
-                return "ipfs://bafybeigyucppqrf7be4lswqsyubepkkm535fxmw4bzwoahs2aborcm4p6q"; // Gold medal metadata
+                return "QmWUfsjYE6enKy4QDYbSZ1HbycGtvr1eVrJPWaB9AXK3L2";
+            default:
+                return "";
+        }
+    };
+
+    const getImageForMetadata = (image) => {
+        switch (image) {
+            case "bronze":
+                return "QmeyMfJPn3nfJmxvCEwzKZ7PkfahXmBTR7noNLUpf8KvU2";
+            case "silver":
+                return "QmXaZTJMcBD7YqEU6XiRVJWe97kBf7mcY6me3GWKJzcVP4";
+            case "gold":
+                return "QmfSho9DAsKmZigJzc4oBZAjuknGB8Hpjv2ZrYpJPjkjMs";
             default:
                 return "";
         }
@@ -46,8 +121,14 @@ function CreateMedal({ walletData, accountId }) {
         return `${a[0]}-${b[0]}-${b[1]}`;
     }
 
+    const navigateToSendMedal = () => {
+        // Navigate to sendMedal page with the token ID as a parameter
+        navigate(`/send?tokenId=${medalTokenId}`);
+    };
+
     return (
         <div className="container">
+            <h3>Tournament? Hackathon? Create, mint and send a medal NFT including a note.</h3>
             <h2>Choose Medal</h2>
             <br />
             <div className="medal-images">
@@ -71,20 +152,38 @@ function CreateMedal({ walletData, accountId }) {
                 />
             </div>
             <br />
-            <br></br>
-            <br></br>
+            <textarea
+                className="note-input"
+                placeholder="Enter a note (max 50 words)"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                maxLength={250}
+            />
+            <br />
+            <br />
             {selectedImage && (
                 <div className="button">
                     <button className="gradient-button" onClick={confirmNFT}>Confirm and Mint</button>
                 </div>
             )}
-            {createTextSt && <p className="success-message">{createTextSt}</p>}
-            {createLinkSt && (
-                <div className="button">
-                    <a href={createLinkSt} target="_blank" rel="noopener noreferrer" className="MuiButton-containedPrimary">
-                        View Transaction
-                    </a>
-                </div>
+            {/* Modal Popup */}
+            {showModal && (
+                <>
+                    <div className="modal-overlay show"></div>
+                    <div className="modal show" ref={modalRef}>
+                        <h2>{createTextSt}</h2>
+                        {createLinkSt && (
+                            <>
+                                <a href={createLinkSt} target="_blank" rel="noopener noreferrer">
+                                    <button className="modal-button">View NFT</button>
+                                </a>
+                                <button className="modal-button" onClick={navigateToSendMedal}>
+                                    Send NFT
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </>
             )}
         </div>
     );
