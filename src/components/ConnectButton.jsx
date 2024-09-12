@@ -27,7 +27,7 @@ const ConnectButton = ({ setWalletData, setAccountId }) => {
   return (
     <button
       onClick={connectWallet}
-      className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+      className="gradientButton"
       disabled={isConnected}
     >
       {connectText}

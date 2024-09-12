@@ -1,349 +1,228 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: white;
-    background-size: cover;
-    background-position: center;
-    font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: white;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Helvetica', sans-serif;
 }
 
-.App {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh; 
+.App, .send-medal-page, .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1, h2, h3, p {
+  color: #000;
 }
 
 h1 {
-    color: #000000;
-    font-size: 2.5rem; 
-    text-align: center; 
-    margin: 20px 0; 
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 20px 0;
 }
 
 h2 {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    color: #000; 
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
 h3 {
-    font-size: 1em;
-    color: #000; 
+  font-size: 1rem;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
-}
-
-p { 
-    color: #000;
+  text-decoration: none;
+  color: inherit;
 }
 
 button {
-    text-transform: none;
-    font-weight: bold;
-    cursor: pointer;
+  background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00);
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: none;
+  transition: background 0.3s ease;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  padding-bottom: 10px;
 }
 
-/* Updated Medal Image Hover Effect */
+.navContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.navLinks {
+  display: flex;
+  gap: 40px;
+  margin-right: 60px;
+}
+
+.link {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Medal Images Styles */
+.medal-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .medal-image {
-    max-width: 250px;
-    max-height: 250px;
-    margin: 0 30px; 
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 20px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
-    border: 5px solid transparent; 
+  max-width: 250px;
+  max-height: 250px;
+  margin: 0 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  border: 5px solid transparent;
 }
 
 .medal-image:hover {
-    transform: scale(1.05); /* Smaller increase in size */
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
 }
 
 .medal-image.selected {
-    transform: scale(1.1) !important; /* Subtle increase on selection */
-    border: 5px solid orange; 
+  transform: scale(1.1) !important;
+  border: 5px solid orange;
 }
 
-/* Responsive Medal Layout */
-.medal-images {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
-}
-
+/* Responsive Layout */
 @media (max-width: 768px) {
-    .medal-images {
-        flex-direction: column; /* Stack medals vertically on mobile */
-        gap: 20px; /* Add spacing between medals */
-    }
+  .medal-images {
+      flex-direction: column;
+      gap: 20px;
+  }
 
-    .medal-image {
-        max-width: 80%; /* Adjust size for mobile */
-    }
+  .medal-image {
+      max-width: 80%;
+  }
 }
 
+/* Success Message */
 .success-message {
-    color: #000; 
-    font-weight: bold;
-    margin-top: 20px;
-    text-align: center;
+  color: #000;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 10px 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; 
-    font-family: 'Helvetica', sans-serif;
-  }
-  
-  .navContainer {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center; 
-    flex-grow: 1; 
-  }
-  
-  .navLinks {
-    display: flex;
-    gap: 40px;
-    margin-right: 60px; 
-  }
-  
-  .link {
-    color: #000;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .button button {
-    background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00); /* Orange gradient */
-    color: #ffffff; /* White text */
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: none;
-    transition: background 0.3s ease;
-  }
-  
-  .button button:hover {
-    background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00); /* Brighter orange gradient on hover */
-  }
+/* Button Styles */
+.button-container {
+  margin-top: 30px;
+}
 
-  /* Stylish Text Box */
+.gradient-button, .modal-button {
+  background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00);
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: none;
+  transition: background 0.3s ease;
+}
+
+.gradient-button:hover, .modal-button:hover {
+  background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00);
+}
+
+/* Textbox Styling */
+.note-input, .styled-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 .note-input {
-    width: 80%; 
-    max-width: 600px; 
-    height: 50px;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #FF6100; 
-    outline: none;
-    font-size: 1.2rem; 
-    color: #333; 
-    background-color: #f9f9f9; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    resize: none;
-    font-family: 'Helvetica', sans-serif;
+  height: 50px;
+  max-width: 600px;
+  color: #333;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  resize: none;
 }
 
-.note-input:focus {
-    border-color: #FF8800; 
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+.note-input:focus, .styled-input:focus {
+  border-color: #FF8800;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    .note-input {
-        width: 90%; 
-        font-size: 1rem;
-    }
-}
-
+/* Modal Styles */
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Ensure it's on top of other elements */
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Darkened Background Overlay */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal-overlay.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Gradient Button for 'View NFT' */
-.modal-button {
-    background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00); /* Orange gradient */
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    text-transform: none;
-    transition: background 0.3s ease;
-}
-
-.modal-button:hover {
-    background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00);
-}
-
-.send-medal-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh;
-    background-color: #f7f7f7; 
-  }
-  
-  .page-title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  
-  .input-group {
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 400px; 
-  }
-  
-  .input-label {
-    display: block;
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 8px;
-  }
-  
-  .styled-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .styled-input:focus {
-    border-color: #FF6100; /* Focus color */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-    outline: none;
-  }
-  
-  /* Button Container */
-  .button-container {
-    margin-top: 30px;
-  }
-  
-  /* Gradient Button */
-  .gradient-button {
-    background: linear-gradient(to right, #FF8800, #FF6100, #FF4D00); 
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-transform: none;
-    transition: background 0.3s ease;
-  }
-  
-  .gradient-button:hover {
-    background: linear-gradient(to right, #FF9C00, #FF7500, #FF4D00); 
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .send-medal-page {
-      padding: 20px;
-    }
-  
-    .page-title {
-      font-size: 1.5rem;
-    }
-  
-    .styled-input {
-      font-size: 0.9rem;
-    }
-  
-    .gradient-button {
-      font-size: 0.9rem;
-      padding: 10px 16px;
-    }
-  }
-  
-  .send-medal-page, .container {
-    padding-top: 20px; /* Reduce this value */
-    margin-top: 0; /* Make sure margin is set to 0 */
-  }
-  
-  .navbar {
-    margin-bottom: 0; /* Ensure no extra bottom margin on the navbar */
-    padding-bottom: 10px; /* Adjust padding for a tighter layout */
-  }
-
-  /* Card styling for the transfer section */
+/* Transfer Card */
 .transfer-card {
   background-color: #fff;
   border-radius: 15px;
@@ -358,40 +237,36 @@ button {
   color: #333;
 }
 
-/* Styling for input groups inside the card */
 .input-group {
   margin-bottom: 20px;
-}
-
-.styled-input {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  max-width: 400px;
 }
 
-.styled-input:focus {
-  border-color: #ff8800;
-  outline: none;
+.input-label {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
 }
 
-/* Button styling inside the card */
-.button-container {
-  margin-top: 20px;
-}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .note-input {
+      width: 90%;
+      font-size: 1rem;
+  }
 
-.gradient-button {
-  background: linear-gradient(to right, #ff8800, #ff6100, #ff4d00);
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+  .page-title {
+      font-size: 1.5rem;
+  }
 
-.gradient-button:hover {
-  background: linear-gradient(to right, #ff9c00, #ff7500, #ff4d00);
+  .styled-input {
+      font-size: 0.9rem;
+  }
+
+  .gradient-button {
+      font-size: 0.9rem;
+      padding: 10px 16px;
+  }
 }
